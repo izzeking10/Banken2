@@ -10,35 +10,39 @@ namespace Banken2
         {
             int choice = 0;
             choice = ShowMenuItem();
-            switch(choice)
+            while (choice != 7)
             {
-                case 1:
-                    Console.WriteLine("Du har valt att lägga till en användare");
-                    AddCustomer();
-                    break;
-                case 2:
-                    Console.WriteLine("Du har valt att ta bort en användare");
-                    break;
-                case 3:
-                    Console.WriteLine("Du har valt att visa alla användare");
-                    break;
-                case 4:
-                    Console.WriteLine("Du har valt att visa saldot för vald användare");
-                    break;
-                case 5:
-                    Console.WriteLine("Du har valt att göra en insättning för användaren");
-                    break;
-                case 6:
-                    Console.WriteLine("Du har valt att göra ett uttag för användaren");
-                    break;
-                case 7:
-                    Console.WriteLine("Du har valt att stänga av programmet");
-                    System.Environment.Exit(1);
-                    break;
-                default:
-                    break;
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Du har valt att lägga till en användare");
+                        AddCustomer();
+                        break;
+                    case 2:
+                        Console.WriteLine("Du har valt att ta bort en användare");
+                        break;
+                    case 3:
+                        Console.WriteLine("Du har valt att visa alla användare");
+                        ShowAllCustomers();
+                        break;
+                    case 4:
+                        Console.WriteLine("Du har valt att visa saldot för vald användare");
+                        break;
+                    case 5:
+                        Console.WriteLine("Du har valt att göra en insättning för användaren");
+                        break;
+                    case 6:
+                        Console.WriteLine("Du har valt att göra ett uttag för användaren");
+                        break;
+                    case 7:
+                        Console.WriteLine("Du har valt att stänga av programmet");
+                        System.Environment.Exit(1);
+                        break;
+                    default:
+                        break;
+                }
+                choice = ShowMenuItem();
             }
-
         }
         static void AddCustomer()
         {
@@ -48,6 +52,13 @@ namespace Banken2
             Console.Write("Ange ditt saldo: ");
             customer.Saldo = int.Parse(Console.ReadLine());
             customers.Add(customer);
+        }
+        static void ShowAllCustomers()
+        {
+            foreach (Customer c in customers)
+            {
+                Console.WriteLine(c.ShowCustomer);
+            }
         }
         static int ShowMenuItem()
         {

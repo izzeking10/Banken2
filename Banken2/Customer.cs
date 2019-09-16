@@ -8,7 +8,7 @@ namespace Banken2
     {
         public string Namn { get; set; }
         public int Saldo { get; set; }
-        public string ShowCustomer {get { return Namn + Saldo; } }
+        public string ShowCustomer {get { return Namn + " " + Saldo; } }
 
     }
 }
