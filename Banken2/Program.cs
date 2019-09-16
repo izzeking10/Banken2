@@ -4,7 +4,7 @@ namespace Banken2
 {
     class Program
     {
-        static List<Customer> list = new List<Customer>();
+        static List<Customer> customers = new List<Customer>();
 
         static void Main(string[] args)
         {
@@ -12,14 +12,42 @@ namespace Banken2
             choice = ShowMenuItem();
             switch(choice)
             {
-
+                case 1:
+                    Console.WriteLine("Du har valt att lägga till en användare");
+                    AddCustomer();
+                    break;
+                case 2:
+                    Console.WriteLine("Du har valt att ta bort en användare");
+                    break;
+                case 3:
+                    Console.WriteLine("Du har valt att visa alla användare");
+                    break;
+                case 4:
+                    Console.WriteLine("Du har valt att visa saldot för vald användare");
+                    break;
+                case 5:
+                    Console.WriteLine("Du har valt att göra en insättning för användaren");
+                    break;
+                case 6:
+                    Console.WriteLine("Du har valt att göra ett uttag för användaren");
+                    break;
+                case 7:
+                    Console.WriteLine("Du har valt att stänga av programmet");
+                    System.Environment.Exit(1);
+                    break;
+                default:
+                    break;
             }
+
+        }
+        static void AddCustomer()
+        {
             Customer customer = new Customer();
             Console.Write("Ange ditt namn: ");
             customer.Namn = Console.ReadLine();
             Console.Write("Ange ditt saldo: ");
             customer.Saldo = int.Parse(Console.ReadLine());
-            Console.WriteLine(customer.ShowCustomer);
+            customers.Add(customer);
         }
         static int ShowMenuItem()
         {
