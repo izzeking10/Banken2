@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 namespace Banken2
 {
@@ -20,6 +21,7 @@ namespace Banken2
                         break;
                     case 2:
                         Console.WriteLine("Du har valt att ta bort en användare");
+                        RemoveCustomer();
                         break;
                     case 3:
                         Console.WriteLine("Du har valt att visa alla användare");
@@ -27,6 +29,7 @@ namespace Banken2
                         break;
                     case 4:
                         Console.WriteLine("Du har valt att visa saldot för vald användare");
+                        ShowBalance();
                         break;
                     case 5:
                         Console.WriteLine("Du har valt att göra en insättning för användaren");
@@ -59,6 +62,22 @@ namespace Banken2
             {
                 Console.WriteLine(c.ShowCustomer);
             }
+        }
+        static void RemoveCustomer()
+        {
+            int number = 1;
+            foreach (Customer c in customers)
+            {
+                Console.WriteLine(number ++ + ": " + c.Namn);
+            }
+            int choice = 0;
+            Console.Write("skriv vilken användare du vill ta bort: ");
+            choice = int.Parse(Console.ReadLine());
+            customers.RemoveAt(choice - 1);
+        }
+        static void ShowBalance()
+        {
+
         }
         static int ShowMenuItem()
         {
