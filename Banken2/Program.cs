@@ -9,6 +9,14 @@ namespace Banken2
 
         static void Main(string[] args)
         {
+            string filepath = @"C:\test\";
+            string filename = @"datacontainer.txt";
+            LoadFile(filename, filepath);
+            if (customers.Count == 0)
+            {
+                customers.Add(new Customer("Mika", 10));
+                customers.Add(new Customer("like", 40));
+            }
             int choice = 0;
             choice = ShowMenuItem();
             while (choice != 7)
@@ -46,6 +54,7 @@ namespace Banken2
                 }
                 choice = ShowMenuItem();
             }
+            SaveToFile(filename, filepath);
         }
         static void AddCustomer()
         {
@@ -63,6 +72,22 @@ namespace Banken2
                 Console.WriteLine(c.ShowCustomer);
             }
         }
+
+        static void SaveToFile(string filename, string filepath)
+        {
+            if (File.Exists(filepath) == false)
+            {
+
+            }
+        }
+        static void LoadFile(string filename, string filepath)
+        {
+            string f = filepath + filename;
+            if (File.Exists(f))
+            {
+
+            }
+        }
         static void RemoveCustomer()
         {
             int number = 1;
@@ -77,7 +102,14 @@ namespace Banken2
         }
         static void ShowBalance()
         {
-
+            int number = 1;
+            foreach (Customer c in customers)
+            {
+                Console.WriteLine(number++ + ": " + c.Namn);
+            }
+            int choice = 0;
+            choice = int.Parse(Console.ReadLine());
+            Console.WriteLine(customers[choice - 1].ShowCustomer);
         }
         static int ShowMenuItem()
         {
