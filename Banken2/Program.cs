@@ -41,9 +41,11 @@ namespace Banken2
                         break;
                     case 5:
                         Console.WriteLine("Du har valt att göra en insättning för användaren");
+                        AddToBalance();
                         break;
                     case 6:
                         Console.WriteLine("Du har valt att göra ett uttag för användaren");
+                        Withdraw();
                         break;
                     case 7:
                         Console.WriteLine("Du har valt att stänga av programmet");
@@ -55,6 +57,7 @@ namespace Banken2
                 choice = ShowMenuItem();
             }
             SaveToFile(filename, filepath);
+
         }
         static void AddCustomer()
         {
@@ -75,16 +78,35 @@ namespace Banken2
 
         static void SaveToFile(string filename, string filepath)
         {
-            if (File.Exists(filepath) == false)
+            string f = filepath + filename;
+            if (File.Exists(f))
             {
-
+                File.Delete(f);
             }
+
+            if (Directory.Exists(filepath) == false)
+            {
+                Directory.CreateDirectory(filepath);
+            }
+            string appendText = "";
+            foreach (Customer customer in customers)
+            {
+                appendText += customer.GetCustomerInfo() + Environment.NewLine;
+            }
+            File.AppendAllText(f, appendText);
         }
-        static void LoadFile(string filename, string filepath)
+        private static void LoadFile(string filename, string filepath)
         {
             string f = filepath + filename;
             if (File.Exists(f))
             {
+                string[] rows = File.ReadAllLines(f);
+                foreach (string row in rows)
+                {
+                    Customer customer = new Customer();
+                    customer.SetCustomerInfo(row);
+                    customers.Add(customer);
+                }
 
             }
         }
@@ -108,7 +130,42 @@ namespace Banken2
                 Console.WriteLine(number++ + ": " + c.Namn);
             }
             int choice = 0;
+            Console.Write("vilken användare vill du kolla?: ");
             choice = int.Parse(Console.ReadLine());
+            Console.WriteLine(customers[choice - 1].Saldo);
+        }
+        static void AddToBalance()
+        {
+            int number = 1;
+            foreach (Customer c in customers)
+            {
+                Console.WriteLine(number++ + ": " + c.ShowCustomer);
+            }
+            int choice = 0;
+            Console.Write("vilken användare väljer du?: ");
+            choice = int.Parse(Console.ReadLine());
+            Console.WriteLine(customers[choice - 1].Saldo);
+            int choice2 = 0;
+            Console.Write("hur mycket vill du sätta in?: ;");
+            choice2 = int.Parse(Console.ReadLine());
+            customers[choice - 1].Saldo += choice2;
+            Console.WriteLine(customers[choice - 1].ShowCustomer);
+        }
+        static void Withdraw()
+        {
+            int number = 1;
+            foreach (Customer c in customers)
+            {
+                Console.WriteLine(number++ + ": " + c.ShowCustomer);
+            }
+            int choice = 0;
+            Console.Write("vilken användare väljer du?: ");
+            choice = int.Parse(Console.ReadLine());
+            Console.WriteLine(customers[choice - 1].Saldo);
+            int choice2 = 0;
+            Console.Write("hur mycket vill du ta ut?: ;");
+            choice2 = int.Parse(Console.ReadLine());
+            customers[choice - 1].Saldo -= choice2;
             Console.WriteLine(customers[choice - 1].ShowCustomer);
         }
         static int ShowMenuItem()
