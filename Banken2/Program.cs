@@ -7,6 +7,9 @@ namespace Banken2
     {
         static List<Customer> customers = new List<Customer>();
 
+
+
+
         static void Main(string[] args)
         {
             string filepath = @"C:\test\";
@@ -59,6 +62,11 @@ namespace Banken2
             SaveToFile(filename, filepath);
 
         }
+
+
+
+
+
         static void AddCustomer()
         {
             Customer customer = new Customer();
@@ -68,6 +76,14 @@ namespace Banken2
             customer.Saldo = int.Parse(Console.ReadLine());
             customers.Add(customer);
         }
+
+
+
+
+
+
+
+
         static void ShowAllCustomers()
         {
             foreach (Customer c in customers)
@@ -75,6 +91,12 @@ namespace Banken2
                 Console.WriteLine(c.ShowCustomer);
             }
         }
+
+
+
+
+
+
 
         static void SaveToFile(string filename, string filepath)
         {
@@ -95,6 +117,13 @@ namespace Banken2
             }
             File.AppendAllText(f, appendText);
         }
+
+
+
+
+
+
+
         private static void LoadFile(string filename, string filepath)
         {
             string f = filepath + filename;
@@ -110,6 +139,11 @@ namespace Banken2
 
             }
         }
+
+
+
+
+
         static void RemoveCustomer()
         {
             int number = 1;
@@ -122,6 +156,12 @@ namespace Banken2
             choice = int.Parse(Console.ReadLine());
             customers.RemoveAt(choice - 1);
         }
+
+
+
+
+
+
         static void ShowBalance()
         {
             int number = 1;
@@ -134,6 +174,11 @@ namespace Banken2
             choice = int.Parse(Console.ReadLine());
             Console.WriteLine(customers[choice - 1].Saldo);
         }
+
+
+
+
+
         static void AddToBalance()
         {
             int number = 1;
@@ -151,6 +196,13 @@ namespace Banken2
             customers[choice - 1].Saldo += choice2;
             Console.WriteLine(customers[choice - 1].ShowCustomer);
         }
+
+
+
+
+
+
+
         static void Withdraw()
         {
             int number = 1;
@@ -158,18 +210,36 @@ namespace Banken2
             {
                 Console.WriteLine(number++ + ": " + c.ShowCustomer);
             }
-            int choice = 0;
-            Console.Write("vilken användare väljer du?: ");
-            choice = int.Parse(Console.ReadLine());
-            Console.WriteLine(customers[choice - 1].Saldo);
-            int choice2 = 0;
-            Console.Write("hur mycket vill du ta ut?: ;");
-            choice2 = int.Parse(Console.ReadLine());
-            customers[choice - 1].Saldo -= choice2;
-            Console.WriteLine(customers[choice - 1].ShowCustomer);
+            try
+            {
+                int choice = 0;
+                Console.Write("vilken användare väljer du?: ");
+                choice = int.Parse(Console.ReadLine());
+                Console.WriteLine(customers[choice - 1].Saldo);
+
+                int choice2 = 0;
+                Console.Write("hur mycket vill du ta ut?: ;");
+                choice2 = int.Parse(Console.ReadLine());
+                customers[choice - 1].Saldo -= choice2;
+                Console.WriteLine(customers[choice - 1].ShowCustomer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+
+
+
+
+
+
+
         static int ShowMenuItem()
         {
+
+            try
+            {
             int choice = 0;
             Console.WriteLine("Ange vilket av följande alternativ önskar du göra");
 
@@ -184,6 +254,11 @@ namespace Banken2
             Console.Write("Skriv ditt val: ");
             choice = int.Parse(Console.ReadLine());
             return choice;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
