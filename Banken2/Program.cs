@@ -55,6 +55,7 @@ namespace Banken2
                         System.Environment.Exit(1);
                         break;
                     default:
+                        Console.WriteLine("Du har gjort ett felaktigt val");
                         break;
                 }
                 choice = ShowMenuItem();
@@ -69,12 +70,18 @@ namespace Banken2
 
         static void AddCustomer()
         {
+            try { 
             Customer customer = new Customer();
             Console.Write("Ange ditt namn: ");
             customer.Namn = Console.ReadLine();
             Console.Write("Ange ditt saldo: ");
             customer.Saldo = int.Parse(Console.ReadLine());
             customers.Add(customer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 
@@ -146,6 +153,7 @@ namespace Banken2
 
         static void RemoveCustomer()
         {
+            try { 
             int number = 1;
             foreach (Customer c in customers)
             {
@@ -155,6 +163,11 @@ namespace Banken2
             Console.Write("skriv vilken användare du vill ta bort: ");
             choice = int.Parse(Console.ReadLine());
             customers.RemoveAt(choice - 1);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 
@@ -181,20 +194,32 @@ namespace Banken2
 
         static void AddToBalance()
         {
+         
             int number = 1;
             foreach (Customer c in customers)
             {
                 Console.WriteLine(number++ + ": " + c.ShowCustomer);
             }
-            int choice = 0;
+            try
+            {
+                int choice = 0;
             Console.Write("vilken användare väljer du?: ");
             choice = int.Parse(Console.ReadLine());
             Console.WriteLine(customers[choice - 1].Saldo);
             int choice2 = 0;
-            Console.Write("hur mycket vill du sätta in?: ;");
+            Console.Write("hur mycket vill du sätta in?: ");
             choice2 = int.Parse(Console.ReadLine());
+                while (choice2 < 0)
+                {
+                    Console.Write("välj ett positivt tal att sätta in: ");
+                    choice2 = int.Parse(Console.ReadLine());
+                }
             customers[choice - 1].Saldo += choice2;
             Console.WriteLine(customers[choice - 1].ShowCustomer);
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 
@@ -218,8 +243,16 @@ namespace Banken2
                 Console.WriteLine(customers[choice - 1].Saldo);
 
                 int choice2 = 0;
-                Console.Write("hur mycket vill du ta ut?: ;");
+                Console.Write("hur mycket vill du ta ut?: ");
                 choice2 = int.Parse(Console.ReadLine());
+                if (choice2 < 0)
+                {
+                    while (choice2 < 0)
+                    {
+                        Console.Write("skriv ett positivt värde att ta ut: ");
+                        choice2 = int.Parse(Console.ReadLine());
+                    }
+                }
                 customers[choice - 1].Saldo -= choice2;
                 Console.WriteLine(customers[choice - 1].ShowCustomer);
             }
@@ -237,28 +270,27 @@ namespace Banken2
 
         static int ShowMenuItem()
         {
-
+            int choice = 0;
             try
             {
-            int choice = 0;
-            Console.WriteLine("Ange vilket av följande alternativ önskar du göra");
+                Console.WriteLine("Ange vilket av följande alternativ önskar du göra");
 
-            Console.WriteLine("1 : Lägg till en användare");
-            Console.WriteLine("2 : Ta bort en användare");
-            Console.WriteLine("3 : Visa alla befintliga användare");
-            Console.WriteLine("4 : Visa saldo för en användare");
-            Console.WriteLine("5 : Gör en insättning för en användare");
-            Console.WriteLine("6 : Gör ett uttag för en användare");
-            Console.WriteLine("7 : Avsluta programmet");
+                Console.WriteLine("1 : Lägg till en användare");
+                Console.WriteLine("2 : Ta bort en användare");
+                Console.WriteLine("3 : Visa alla befintliga användare");
+                Console.WriteLine("4 : Visa saldo för en användare");
+                Console.WriteLine("5 : Gör en insättning för en användare");
+                Console.WriteLine("6 : Gör ett uttag för en användare");
+                Console.WriteLine("7 : Avsluta programmet");
 
-            Console.Write("Skriv ditt val: ");
-            choice = int.Parse(Console.ReadLine());
-            return choice;
+                Console.Write("Skriv ditt val: ");
+                choice = int.Parse(Console.ReadLine());
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            return choice;
         }
     }
 }
