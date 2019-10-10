@@ -5,23 +5,21 @@ namespace Banken2
 {
     class Program
     {
-        static List<Customer> customers = new List<Customer>();
-
-
+        static List<Customer> customers = new List<Customer>(); //makes a list for customers
 
 
         static void Main(string[] args)
         {
             string filepath = @"C:\test\";
             string filename = @"datacontainer.txt";
-            LoadFile(filename, filepath);
+            LoadFile(filename, filepath); //loads file and checks if there is any customers are registered and adds some if necessary
             if (customers.Count == 0)
             {
                 customers.Add(new Customer("Mika", 10));
-                customers.Add(new Customer("like", 40));
+                customers.Add(new Customer("sir", 40));
             }
             int choice = 0;
-            choice = ShowMenuItem();
+            choice = ShowMenuItem(); //checks what answer the user made
             while (choice != 7)
             {
                 switch (choice)
@@ -68,13 +66,13 @@ namespace Banken2
 
 
 
-        static void AddCustomer()
+        static void AddCustomer() //Makes a new customer to the customer list
         {
             try { 
             Customer customer = new Customer();
-            Console.Write("Ange ditt namn: ");
+            Console.Write("Ange namn: "); //asks for a name
             customer.Namn = Console.ReadLine();
-            Console.Write("Ange ditt saldo: ");
+            Console.Write("Ange saldo: "); //asks how much money it has
             customer.Saldo = int.Parse(Console.ReadLine());
             customers.Add(customer);
             }
@@ -91,7 +89,7 @@ namespace Banken2
 
 
 
-        static void ShowAllCustomers()
+        static void ShowAllCustomers() //shows all listed customers
         {
             foreach (Customer c in customers)
             {
@@ -105,15 +103,15 @@ namespace Banken2
 
 
 
-        static void SaveToFile(string filename, string filepath)
+        static void SaveToFile(string filename, string filepath) //saves/overwrites customer information on a document
         {
-            string f = filepath + filename;
-            if (File.Exists(f))
+            string f = filepath + filename; 
+            if (File.Exists(f)) //checks if document alredy exists
             {
                 File.Delete(f);
             }
 
-            if (Directory.Exists(filepath) == false)
+            if (Directory.Exists(filepath) == false)  
             {
                 Directory.CreateDirectory(filepath);
             }
@@ -131,7 +129,7 @@ namespace Banken2
 
 
 
-        private static void LoadFile(string filename, string filepath)
+        private static void LoadFile(string filename, string filepath) //loads dokument info and puts it into list
         {
             string f = filepath + filename;
             if (File.Exists(f))
@@ -151,17 +149,17 @@ namespace Banken2
 
 
 
-        static void RemoveCustomer()
+        static void RemoveCustomer() //Removes selected customer from list
         {
             try { 
             int number = 1;
-            foreach (Customer c in customers)
-            {
+            foreach (Customer c in customers) //displays all the customers in list.
+                {
                 Console.WriteLine(number ++ + ": " + c.Namn);
             }
             int choice = 0;
-            Console.Write("skriv vilken användare du vill ta bort: ");
-            choice = int.Parse(Console.ReadLine());
+            Console.Write("skriv vilken användare du vill ta bort: "); //asks which user to remove.
+                choice = int.Parse(Console.ReadLine());
             customers.RemoveAt(choice - 1);
             }
             catch (Exception ex)
@@ -175,15 +173,15 @@ namespace Banken2
 
 
 
-        static void ShowBalance()
+        static void ShowBalance() //shows the balance of selected customer
         {
             int number = 1;
-            foreach (Customer c in customers)
+            foreach (Customer c in customers) //displays all the customers in list.
             {
                 Console.WriteLine(number++ + ": " + c.Namn);
             }
             int choice = 0;
-            Console.Write("vilken användare vill du kolla?: ");
+            Console.Write("vilken användare vill du kolla?: "); //asks which user to check balance from
             choice = int.Parse(Console.ReadLine());
             Console.WriteLine(customers[choice - 1].Saldo);
         }
@@ -192,23 +190,24 @@ namespace Banken2
 
 
 
-        static void AddToBalance()
+        static void AddToBalance() // adds selected amount to saldo of the selected customer
         {
          
             int number = 1;
-            foreach (Customer c in customers)
+            foreach (Customer c in customers) //displays all the customers in list.
             {
                 Console.WriteLine(number++ + ": " + c.ShowCustomer);
             }
             try
             {
                 int choice = 0;
-            Console.Write("vilken användare väljer du?: ");
-            choice = int.Parse(Console.ReadLine());
+            Console.Write("vilken användare väljer du?: "); //asks which customer to add money to
+                choice = int.Parse(Console.ReadLine());
             Console.WriteLine(customers[choice - 1].Saldo);
+
             int choice2 = 0;
-            Console.Write("hur mycket vill du sätta in?: ");
-            choice2 = int.Parse(Console.ReadLine());
+            Console.Write("hur mycket vill du sätta in?: "); //asks how much to add to customer
+                choice2 = int.Parse(Console.ReadLine());
                 while (choice2 < 0)
                 {
                     Console.Write("välj ett positivt tal att sätta in: ");
@@ -231,19 +230,20 @@ namespace Banken2
         static void Withdraw()
         {
             int number = 1;
-            foreach (Customer c in customers)
+            foreach (Customer c in customers) //displays all the customers in list.
             {
                 Console.WriteLine(number++ + ": " + c.ShowCustomer);
             }
             try
             {
+                
                 int choice = 0;
-                Console.Write("vilken användare väljer du?: ");
+                Console.Write("vilken användare väljer du?: ");   //asks for which customer to withdraw from
                 choice = int.Parse(Console.ReadLine());
                 Console.WriteLine(customers[choice - 1].Saldo);
-
+                
                 int choice2 = 0;
-                Console.Write("hur mycket vill du ta ut?: ");
+                Console.Write("hur mycket vill du ta ut?: ");  //asks how much to take out
                 choice2 = int.Parse(Console.ReadLine());
                 if (choice2 < 0)
                 {
@@ -273,6 +273,7 @@ namespace Banken2
             int choice = 0;
             try
             {
+                //shows actions a user what actions it can do.
                 Console.WriteLine("Ange vilket av följande alternativ önskar du göra");
 
                 Console.WriteLine("1 : Lägg till en användare");
@@ -282,7 +283,7 @@ namespace Banken2
                 Console.WriteLine("5 : Gör en insättning för en användare");
                 Console.WriteLine("6 : Gör ett uttag för en användare");
                 Console.WriteLine("7 : Avsluta programmet");
-
+                //asks for a number that represent an action.
                 Console.Write("Skriv ditt val: ");
                 choice = int.Parse(Console.ReadLine());
             }

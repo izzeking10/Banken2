@@ -7,7 +7,7 @@ namespace Banken2
 {
     class Customer
     {
-        public string Namn { get; set; }
+        public string Namn { get; set; } 
         public int Saldo { get; set; }
         public Customer()
         {
