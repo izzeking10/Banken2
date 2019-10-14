@@ -5,7 +5,7 @@ namespace Banken2
 {
     class Program
     {
-        static List<Customer> customers = new List<Customer>(); //makes a list for customers
+        static List<Customer> customers = new List<Customer>(); //makes a list for customers which is the Instans/Objekt.
 
 
         static void Main(string[] args)
@@ -80,7 +80,7 @@ namespace Banken2
             {
                 Console.WriteLine(ex.Message);
             }
-        }
+        }  
 
 
 
@@ -180,10 +180,17 @@ namespace Banken2
             {
                 Console.WriteLine(number++ + ": " + c.Namn);
             }
-            int choice = 0;
-            Console.Write("vilken användare vill du kolla?: "); //asks which user to check balance from
-            choice = int.Parse(Console.ReadLine());
-            Console.WriteLine(customers[choice - 1].Saldo);
+            try
+            { 
+                int choice = 0;
+                Console.Write("vilken användare vill du kolla?: "); //asks which user to check balance from
+                choice = int.Parse(Console.ReadLine());
+                Console.WriteLine(customers[choice - 1].Saldo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 

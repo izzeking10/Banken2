@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Banken2
 {
-    class Customer
+    class Customer //The class Customer
     {
-        public string Namn { get; set; } 
+        public string Namn { get; set; }
         public int Saldo { get; set; }
         public Customer()
         {
         }
-        public Customer(string name, int Saldo)
+        public Customer(string name, int Saldo) //konstruktorn.
         {
             this.Namn = name;
             this.Saldo = Saldo;
